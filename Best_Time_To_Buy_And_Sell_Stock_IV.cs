@@ -1,4 +1,5 @@
 public class Solution {
+    // DP + Memoization approach
     public int[,,] dp;
     
     public int FindResult(int[] prices, int i, int n, int flag, int limit)
