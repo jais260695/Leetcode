@@ -12,11 +12,11 @@ public class Solution {
         if(dp[r]!=-1) return dp[r];
         if(s[r]=='1')
         {
-            return Solve(r-1,s);
+            return dp[r]=Solve(r-1,s);
         }
         else
         {
-            return Math.Min(1+Solve(r-1,s),prefixOnesCount[r-1]);
+            return dp[r]=Math.Min(1+Solve(r-1,s),prefixOnesCount[r-1]);
         }
     }
     
