@@ -1,10 +1,10 @@
 public class Solution {
-    Dictionary<int,IList<string>> dp = new Dictionary<int,IList<string>>();
-    public IList<string> GenerateParenthesis(int n) {
+    IList<string>[] dp;
+    public IList<string> GenerateParenthesisUtil(int n) {
         if(n==0) return new List<string>();
         if(n==1) return new List<string>(){"()"};
         
-        if(dp.ContainsKey(n))
+        if(dp[n]!=null)
         {
             return dp[n].ToList<string>();
         }
@@ -16,9 +16,9 @@ public class Solution {
         for(int i=0;i<=(n-1)/2;i++)
         {
             temp1.Clear();
-            temp1 = GenerateParenthesis(i);
+            temp1 = GenerateParenthesisUtil(i);
             temp2.Clear();
-            temp2 = GenerateParenthesis(n-1-i);
+            temp2 = GenerateParenthesisUtil(n-1-i);
             if(temp1.Count()!=0 && temp2.Count()!=0)
             {
                 foreach(string s1 in temp1)
@@ -50,7 +50,11 @@ public class Solution {
                 }
             }
         }
-        dp.Add(n,ans);
+        dp[n] = ans.ToList<string>();
         return ans.ToList<string>();
+    }
+    public IList<string> GenerateParenthesis(int n) {
+        dp = new IList<string>[n+1];
+        return GenerateParenthesisUtil(n);
     }
 }
