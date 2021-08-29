@@ -25,10 +25,9 @@ public class Solution {
                 { 
                     foreach(string s2 in temp2)
                     {
-                        string str = "("+s1+")"+s2;
-                        if(!ans.Contains(str)) ans.Add(str);
-                        str = "("+s2+")"+s1;
-                        if(!ans.Contains(str)) ans.Add(str);
+                        if(!ans.Contains("("+s1+s2+")")) ans.Add("("+s1+s2+")");
+                        if(!ans.Contains("("+s1+")"+s2)) ans.Add("("+s1+")"+s2);
+                        if(!ans.Contains("("+s2+")"+s1)) ans.Add("("+s2+")"+s1);
                     }
                 }
             }
