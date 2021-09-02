@@ -24,13 +24,6 @@ public class Solution {
         {
                 queue.Enqueue(initialBoxes[i]);
                 visited[initialBoxes[i]] = true;
-                if(status[initialBoxes[i]]==1)
-                {
-                    foreach(int nextBox in keys[initialBoxes[i]])
-                    {
-                        status[nextBox] = 1;
-                    }
-                }
         }
         
         while(queue.Count()>0)
@@ -46,21 +39,18 @@ public class Solution {
                 }
                 else
                 {
-                    result+=candies[currBox];
                     areAllClosed = false;
+                    result+=candies[currBox];
+                    foreach(int unlockBox in keys[currBox])
+                    {
+                        status[unlockBox] = 1;
+                    }
                     foreach(int nextBox in adjList[currBox])
                     {
                         if(!visited[nextBox])
                         {
                             queue.Enqueue(nextBox);
                             visited[nextBox] = true;
-                            if(status[nextBox]==1)
-                            {
-                                foreach(int unlockBox in keys[nextBox])
-                                {
-                                    status[unlockBox] = 1;
-                                }
-                            }
                         }
                     }
                 }
