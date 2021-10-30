@@ -1,10 +1,6 @@
 public class Solution {
     public int CountTriplets(int[] arr) {
         int n = arr.Count();
-        if(n==2) 
-        {
-            return (arr[0]^arr[1])==0 ? 1 : 0;
-        }
         int[] prefixXOR = new int[n];
         prefixXOR[0] = arr[0];
         for(int i=1;i<n;i++)
@@ -12,11 +8,10 @@ public class Solution {
             prefixXOR[i] = prefixXOR[i-1]^arr[i];
         }
         int result = 0;
-        for(int k=2;k<=n;k++)
+        for(int k=1;k<n;k++)
         {
-            for(int i=0;i<n-k+1;i++)
+            for(int i=0,j=k;j<n;i++,j++)
             {
-                int j = i+k-1;
                 int temp = prefixXOR[j];
                 if(i!=0)
                 {
@@ -24,7 +19,7 @@ public class Solution {
                 }
                 if(temp==0)
                 {
-                    result+=(k-1);
+                    result+=k;
                 }
             }
         }
