@@ -15,7 +15,10 @@ public class Solution {
         int n = grid.Count();
         int m = grid[0].Count();
         int time = 0;
+        int[] xDir = new int[4]{0,0,1,-1};
+        int[] yDir = new int[4]{1,-1,0,0};
         Queue<Pair> queue = new Queue<Pair>();
+        bool isOrange = false;
         for(int i=0;i<n;i++)
         {
             for(int j =0 ;j<m;j++)
@@ -24,46 +27,33 @@ public class Solution {
                 {
                     queue.Enqueue(new Pair(i,j));
                     grid[i][j] = -1;
+                    isOrange = true;
+                }
+                else if(grid[i][j]==1)
+                {
+                    isOrange = true;
                 }
             }
         }
-            queue.Enqueue(new Pair(-1,-1));
-            
-            while(queue.Count()>0)
+        if(queue.Count()==0 && !isOrange) return 0;
+        while(queue.Count()>0)
+        {
+            int size = queue.Count();
+            while(size>0)
             {
                 Pair p = queue.Dequeue();
-                
-                if(p.i==-1)
+                for(int d=0;d<4;d++)
                 {
-                    time++;
-                    if(queue.Count()>0)
-                    {
-                        queue.Enqueue(new Pair(-1,-1));
-                    }
-                    continue;
+                    int x = p.i+xDir[d];
+                    int y = p.j+yDir[d];
+                    if(x>=n || y>=m || x<0 || y<0 || grid[x][y]!=1) continue;
+                    grid[x][y] = -1;
+                    queue.Enqueue(new Pair(x,y));
                 }
-                
-                if(p.i+1<n && grid[p.i+1][p.j]==1)
-                {
-                    grid[p.i+1][p.j] = -1;
-                    queue.Enqueue(new Pair(p.i+1,p.j));
-                }
-                if(p.i-1>=0 && grid[p.i-1][p.j]==1)
-                {
-                    grid[p.i-1][p.j] = -1;
-                    queue.Enqueue(new Pair(p.i-1,p.j));
-                }
-                if(p.j+1<m && grid[p.i][p.j+1]==1)
-                {
-                    grid[p.i][p.j+1] = -1;
-                    queue.Enqueue(new Pair(p.i,p.j+1));
-                }
-                if(p.j-1>=0 && grid[p.i][p.j-1]==1)
-                {
-                    grid[p.i][p.j-1] = -1;
-                    queue.Enqueue(new Pair(p.i,p.j-1));
-                }
+                size--;
             }
+            time++;
+        }
             
         for(int i=0;i<n;i++)
         {
