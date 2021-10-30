@@ -1,14 +1,12 @@
 public class Solution {
     public void ReverseString(char[] s) {
-        int m = s.Count();
-        if(m==0) return;
-        int l = m-1;
-        int n = l/2;
-        for(int i=0;i<=n;i++)
+        int l = 0;
+        int r = s.Count()-1;
+        while(l<r)
         {
-            char temp = s[i];
-            s[i] = s[l-i];
-            s[l-i] = temp;
+            char temp = s[l];
+            s[l++] = s[r];
+            s[r--] = temp;
         }
     }
 }
