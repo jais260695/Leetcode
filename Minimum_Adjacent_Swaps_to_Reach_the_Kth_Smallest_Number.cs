@@ -56,31 +56,23 @@ public class Solution {
         int n = num.Length;
         int[] nums = new int[n];
         int[] temp = new int[n];
-        int i =0;
-        for(i=0;i<n;i++)
+        for(int i=0;i<n;i++)
         {
             nums[i] = num[i] - '0';
             temp[i] = num[i] - '0';
-        }
-        
-        for(i = 0;i<k;i++)
+        }        
+        for(int i = 0;i<k;i++)
         {
             NextPermutation(nums);
         }
-        i = 0;
-        while(i<n && nums[i]==temp[i])
-        {
-            i++;
-        }
         int result = 0;
-        for(int j=i;j<n-1;j++)
+        for(int j=0;j<n-1;j++)
         {
             int l = j;
             while(l<n && nums[l]!=temp[j])
             {
                 l++;
             }
-            if(l==n) break;
             while(l>j)
             {
                 Swap(l,l-1,nums);
