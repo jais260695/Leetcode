@@ -1,26 +1,21 @@
 public class Solution {
-    public int[,] dp;
-    
-    public int Solve(int[] arr, int r, int time, int i)
-    {
-        if(i>=r) return 0;
-        if(dp[i,time]!=int.MinValue)
-            return dp[i,time];
-        dp[i,time] = Math.Max(time*arr[i]+Solve(arr,r,time+1,i+1),Solve(arr,r,time,i+1));
-        return dp[i,time];
-    }
-    
     public int MaxSatisfaction(int[] satisfaction) {
         Array.Sort(satisfaction);
         int n = satisfaction.Count();
-        dp = new int[n,n+1];
-        for(int i=0;i<n;i++)
+        int[,] dp = new int[n+1,n+1];
+        for(int i=1;i<=n;i++)
         {
-            for(int j=0;j<=n;j++)
-            {
-                dp[i,j] = int.MinValue;
-            }
+            dp[i,i] = dp[i-1,i-1]+satisfaction[i-1]*i;
         }
-        return Solve(satisfaction,satisfaction.Count(),1,0);
+        int result = 0;
+        for(int k=1;k<=n;k++)
+        {
+            for(int i=k+1,j=1;i<=n;i++,j++)
+            {
+                dp[i,j] = Math.Max(dp[i-1,j-1]+satisfaction[i-1]*j,dp[i-1,j]);
+            }
+            result = Math.Max(dp[n,k],result);
+        }
+        return result;
     }
 }
