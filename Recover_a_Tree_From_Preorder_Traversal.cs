@@ -12,61 +12,70 @@
  * }
  */
 public class Solution {
-    public int nodes = 0;
-    public class pair
+    public int currentNode = 0;
+    int treeSize = 0;
+    List<Node> nodes = new List<Node>();
+    
+    public class Node
     {
         public int val;
         public int hgt;
-        public pair(int v, int h)
+        public Node(int v, int h)
         {
             val = v;
             hgt = h;
         }
-    }
+    }    
     
-    public TreeNode DFS( List<pair> arr, int n)
+    public TreeNode DFS()
     {
-        int u = nodes;
-        TreeNode root = new TreeNode();
-        root.val = arr[u].val;
-        if(nodes+1<n && arr[nodes+1].hgt==arr[u].hgt+1)
+        int u = currentNode;
+        TreeNode root = new TreeNode(nodes[u].val);
+        
+        //if height of next node is 1 + height of current node, add it as left child
+        if(currentNode+1 < treeSize && nodes[currentNode+1].hgt == nodes[u].hgt+1)
         {
-            nodes++;
-            root.left = DFS(arr,n);
+            currentNode++;
+            root.left = DFS();
         }
-        if(nodes+1<n && arr[nodes+1].hgt==arr[u].hgt+1)
+        
+        //if height of next node is 1 + height of current node, add it as right child
+        if(currentNode+1 < treeSize && nodes[currentNode+1].hgt == nodes[u].hgt+1)
         {
-            nodes++;
-            root.right = DFS(arr,n);
+            currentNode++;
+            root.right = DFS();
         }
         return root;
     }
     
     public TreeNode RecoverFromPreorder(string S) {
-        int h = 0;
         int n = S.Length;
-        string str = "";
-        List<pair> p = new List<pair>();
-        int i=0;
-        while(i<n)
+        int i = 0;
+        
+        while(i < n)
         {
-            str="";
-            while(i<n && S[i]!='-')
-            {
-                str+=S[i];
-                i++;
-            }
-            p.Add(new pair( Convert.ToInt32(str.ToString()), h ));
-            h = 0;
-            while(i<n && S[i]=='-')
+            string str = "";
+            int h = 0;
+            
+            //Indentify Height of current Node
+            while(i < n && S[i] == '-')
             {
                 h++;
                 i++;
             }
             
-        }
+            //Identify current Node
+            while(i < n && S[i] != '-')
+            {
+                str+=S[i];
+                i++;
+            }
+            
+            nodes.Add(new Node(Convert.ToInt32(str), h));
+        }     
         
-        return DFS(p,p.Count());
-    
+        treeSize = nodes.Count();                
+        
+        return DFS();    
     }
 }
