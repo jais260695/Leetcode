@@ -6,10 +6,7 @@ public class Solution {
         StringBuilder sb = new StringBuilder();
         foreach(KeyValuePair<char,int> kvp in lettersCount)
         {
-            for(int i = 0;i<kvp.Value;i++)
-            {
-                sb.Append(kvp.Key);
-            }
+            sb.Append(kvp.Value+"|");
         }
         return sb.ToString();
     }
@@ -47,18 +44,9 @@ public class Solution {
         return res;
     }
     
-    public bool ValidateLettersCount(Dictionary<char,int> lettersCount)
-    {
-        foreach(KeyValuePair<char,int> kvp in lettersCount)
-        {
-            if(kvp.Value!=0) return false;
-        }
-        return true;
-    }
-    
     public int KnapSack(string[] words,Dictionary<string,int> wordsWeight,Dictionary<char,int> lettersCount,int currWord)
     {
-        if(currWord==0 || ValidateLettersCount(lettersCount))
+        if(currWord==0)
         {
             return 0;
         }
