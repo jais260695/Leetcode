@@ -16,28 +16,18 @@ public class Solution {
     public int res = 0;
     public void InOrder(TreeNode root, int k )
     {
-        if(i<k)
+        if(root==null || i==k) return;
+        InOrder(root.left,k);
+        i++;
+        if(i==k)
         {
-            if(root.left != null) 
-            {
-                InOrder(root.left,k);
-            }  
-                i++;
-                if(i==k) 
-                {
-                    res = root.val;
-                    return;
-                }
-            if(root.right!=null)
-            {
-                InOrder(root.right,k);
-            }
+            res = root.val;
         }
+        InOrder(root.right,k);
         return;
     }
-    public int KthSmallest(TreeNode root, int k) {
-         
-         InOrder(root,k);
+    public int KthSmallest(TreeNode root, int k) {         
+        InOrder(root,k);
         return res;
     }
 }
