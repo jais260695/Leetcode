@@ -15,40 +15,30 @@ public class Solution {
     public IList<IList<int>> LevelOrder(TreeNode root) {
         List<List<int>> result = new List<List<int>>();
         if(root==null) return result.ToList<IList<int>>();
-        TreeNode  sep = new TreeNode(-999999);
-        List<int> res = new List<int>();
-        Queue<TreeNode> q  = new Queue<TreeNode>();
         
-        q.Enqueue(root);
-        q.Enqueue(sep);
-        
+        Queue<TreeNode> q  = new Queue<TreeNode>();        
+        q.Enqueue(root);        
         while(q.Count()>0)
         {
-            TreeNode temp = q.Dequeue();
-            
-            if(temp.val==-999999)
+            int size = q.Count();
+            List<int> res = new List<int>();
+            while(size>0)
             {
-                result.Add(res);
-                
-                res = new List<int>();
-                if(q.Count()==0) break; 
-                q.Enqueue(sep);
-                continue;
-            }
+                TreeNode temp = q.Dequeue();
+                res.Add(temp.val);
             
-            res.Add(temp.val);
-            
-            if(temp.left!=null)
-            {
-               q.Enqueue(temp.left);
+                if(temp.left!=null)
+                {
+                   q.Enqueue(temp.left);
+                }
                 
-                
+                if(temp.right!=null)
+                {
+                   q.Enqueue(temp.right);
+                }
+                size--;
             }
-            if(temp.right!=null)
-            {
-               q.Enqueue(temp.right);
-            }
-            
+            result.Add(res);
         }
         return result.ToList<IList<int>>();;
         
