@@ -18,14 +18,14 @@ public class Solution {
         int res = int.MaxValue;
         int n = grid.Count();
         int m = grid[0].Count();
-        int[,] dp = new int[n,m];
+        int[,] dist = new int[n,m];
         Pair[,] graph = new Pair[n,m];
         
         for(int i = 0;i<n;i++)
         {
             for(int j = 0 ;j<m;j++)
             {
-                dp[i,j] = int.MaxValue;
+                dist[i,j] = int.MaxValue;
                 graph[i,j] = new Pair(i,j,0);
                 
                 if(grid[i][j]==1)
@@ -124,33 +124,31 @@ public class Solution {
         }  
         
         
-        List<Pair> d = new List<Pair>();
-        dp[0,0] = 0;
-        d.Add(new Pair(0,0,0));
-        while(d.Count()>0)
+        List<Pair> queue = new List<Pair>();
+        dist[0,0] = 0;
+        queue.Add(new Pair(0,0,0));
+        while(queue.Count()>0)
         {
-            Pair p = d[0];
-            d.RemoveAt(0);
+            Pair p = queue[0];
+            queue.RemoveAt(0);
             foreach(Pair adj in graph[p.u,p.v].adjList)
             {
-                if(dp[adj.u,adj.v]>adj.w + dp[p.u,p.v])
+                if(dist[adj.u,adj.v]>adj.w + dist[p.u,p.v])
                 {
-                    dp[adj.u,adj.v] = adj.w + dp[p.u,p.v];
+                    dist[adj.u,adj.v] = adj.w + dist[p.u,p.v];
                     if(adj.w==0)
                     {
-                        d.Insert(0,adj);
+                        queue.Insert(0,adj);
                     }
                     else
                     {
-                        d.Add(adj);
+                        queue.Add(adj);
                     }
                 }
                 
             }
         }
-        
-        
-            
-        return dp[n-1,m-1];
+           
+        return dist[n-1,m-1];
     }
 }
