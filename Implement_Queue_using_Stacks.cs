@@ -45,7 +45,7 @@ public class MyQueue {
     
     /** Returns whether the queue is empty. */
     public bool Empty() {
-        if(q1.Count()==0 && q2.Count()==0)
+        if(q1.Count()==0)
             return true;
         return false;
     }
