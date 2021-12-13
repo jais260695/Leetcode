@@ -14,18 +14,23 @@
 public class Solution {
      public TreeNode Construct(int[] pre, int ei, int ej, int[] ino, int ti, int tj, int n)
     {
-        if(ei==ej && ti==tj) 
+        if(ei==ej) 
         {
             return new TreeNode(pre[ei]);
         }
         TreeNode root = new TreeNode(pre[ei]);
             int index = Array.IndexOf(ino,pre[ei]); 
-            int fi = ei+1;
-            int fe = fi+(index-1)-ti;
-            if(fi<=fe && ti<=(index-1))
-                root.left = Construct(pre,fi,fe,ino,ti,index-1,n);
-            if((fe+1)<=ej && (index+1)<=(tj))
-                root.right = Construct(pre,fe+1,ej,ino,index+1,tj,n);
+            int i = ei+1;
+            int lengthLeftSubtree = index-ti;
+            int j = ei+lengthLeftSubtree;
+            
+            if(i<=j && ti<=(index-1))
+                root.left = Construct(pre,i,j,ino,ti,index-1,n);
+         
+            int lengthRightSubtree = tj-index;
+         
+            if((j+1)<=ej && (index+1)<=(tj))
+                root.right = Construct(pre,j+1,ej,ino,index+1,tj,n);
         
         
         return root;
