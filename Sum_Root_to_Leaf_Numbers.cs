@@ -16,15 +16,10 @@ public class Solution {
     public int sum = 0;
     public void DFS(TreeNode root)
     {
-        sum = sum*10;
-        sum+=root.val;
-        
+        sum = sum*10+root.val;      
         if(root.left==null && root.right==null)
         {
            res+=sum;
-           sum-=root.val;
-           sum = sum/10; 
-           return;
         }
         else
         {
@@ -33,8 +28,7 @@ public class Solution {
             if(root.right!=null)
                 DFS(root.right); 
         }
-        sum-=root.val;
-           sum = sum/10; 
+        sum = sum/10; 
     }
     public int SumNumbers(TreeNode root) {
         if(root==null) return 0;
