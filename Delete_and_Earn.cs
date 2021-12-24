@@ -18,7 +18,7 @@ public class Solution {
         int[] dp = new int[n];
         dp[0] = list[0]*map[list[0]];
         dp[1] = list[1]*map[list[1]];
-        if(list[0]+1!=list[1])
+        if(list[1]!=list[0]+1)
         {
             dp[1]+=dp[0];
         }
@@ -29,7 +29,7 @@ public class Solution {
         for(int i=2;i<n;i++)
         {
             dp[i] = list[i]*map[list[i]];
-            if(list[i-1]+1 != list[i])
+            if(list[i] != list[i-1] + 1)
             {
                 dp[i]+=dp[i-1];
             }
