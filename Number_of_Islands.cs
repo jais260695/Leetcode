@@ -1,26 +1,17 @@
 public class Solution {
+    int[] xDir = new int[4]{0,0,1,-1};
+    int[] yDir = new int[4]{1,-1,0,0};
     
     public void DFS(char[][] grid, int i, int j, int n, int m)
     {
-        grid[i][j] = '0';
-        
-        if(i+1<n &&  grid[i+1][j]=='1')
+        grid[i][j] = '0';        
+        for(int d=0;d<4;d++)
         {
-            DFS(grid,i+1,j,n,m);
-        }
-        if(i-1>=0 &&  grid[i-1][j]=='1')
-        {
-            DFS(grid,i-1,j,n,m);
-        }
-        if(j+1<m &&  grid[i][j+1]=='1')
-        {
-            DFS(grid,i,j+1,n,m);
-        }
-        if(j-1>=0 &&  grid[i][j-1]=='1')
-        {
-            DFS(grid,i,j-1,n,m);
-        }
-        
+            int x = i + xDir[d];
+            int y = j + yDir[d];
+            if(x<0 || y<0 || x>=n || y>=m || grid[x][y]=='0') continue;
+            DFS(grid,x,y,n,m);
+        }       
     }
     public int NumIslands(char[][] grid) {
         
