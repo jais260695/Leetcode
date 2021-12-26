@@ -10,11 +10,9 @@ public class Solution {
     
     public int Find(int[] parent, int i)
     {
-        while(parent[i]!=-1)
-        {
-            i = parent[i];
-        }
-        return i;
+        if(parent[i]==-1)
+            return i;        
+        return parent[i] = Find(parent,parent[i]);
     }
     
     public void Union(int[] parent, int[] rank, int x, int y)
@@ -89,15 +87,15 @@ public class Solution {
         for(int i=0;i<m;i++)
         {
             
-            int v = KruskalsMST(n,newEdges,null,edges[i]);
-            if(v>min)
+            int tMin = KruskalsMST(n,newEdges,null,edges[i]);
+            if(tMin>min)
             {
                 critical.Add(i);
             }
-            else
+            else if(tMin==min)
             {
-                v = KruskalsMST(n,newEdges,edges[i],null);
-                if(v==min)
+                tMin = KruskalsMST(n,newEdges,edges[i],null);
+                if(tMin==min)
                 {
                     pseudoCritical.Add(i);
                 }
