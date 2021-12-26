@@ -1,23 +1,23 @@
 public class Solution {
     Dictionary<char,List<char>> dict = new Dictionary<char,List<char>>();
     List<string> res = new List<string>();
-    public void LetterCombinationsUtil(string digits, string result)
+    public void LetterCombinationsUtil(string digits, int n, string result, int index)
     {
-        if(digits=="")
+        if(index==n)
         {
-            if(!res.Contains(result)) res.Add(result);
+            res.Add(result);
             return;
         }
         
-        foreach(char ch in dict[digits[0]])
+        foreach(char ch in dict[digits[index]])
         {
-            LetterCombinationsUtil(digits.Substring(1),result+ch);
+            LetterCombinationsUtil(digits,n, result+ch, index+1);
         }
         
         
     }
     public IList<string> LetterCombinations(string digits) {
-        if(digits=="") return res.ToList<string>();
+        if(digits.Length==0) return res.ToList<string>();
         dict.Add('2',new List<char>(){'a','b','c'});
         dict.Add('3',new List<char>(){'d','e','f'});
         dict.Add('4',new List<char>(){'g','h','i'});
@@ -26,7 +26,7 @@ public class Solution {
         dict.Add('7',new List<char>(){'p','q','r','s'});
         dict.Add('8',new List<char>(){'t','u','v'});
         dict.Add('9',new List<char>(){'w','x','y','z'});
-        LetterCombinationsUtil(digits,"");
+        LetterCombinationsUtil(digits,digits.Length,string.Empty,0);
         return res.ToList<string>();
     }
 }
