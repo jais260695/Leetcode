@@ -16,45 +16,31 @@ public class Solution {
         List<List<int>> result = new List<List<int>>();
         if(root==null) return result.ToList<IList<int>>();
         
-        Stack<TreeNode> q  = new Stack<TreeNode>();
-        Stack<TreeNode> s  = new Stack<TreeNode>();
-        
-        q.Push(root);
-        
-        while(q.Count()>0 || s.Count()>0)
+        Queue<TreeNode> q  = new Queue<TreeNode>();
+        int level = 0;        
+        q.Enqueue(root);        
+        while(q.Count()>0)
         {
+            int size = q.Count();
             List<int> res = new List<int>();
-            while(q.Count()>0)
+            while(size>0)
             {
-                TreeNode temp = q.Pop();
+                TreeNode temp = q.Dequeue();
                 res.Add(temp.val);
                     if(temp.left!=null)
                     {
-                       s.Push(temp.left);
+                       q.Enqueue(temp.left);
                     }
                     if(temp.right!=null)
                     {
-                       s.Push(temp.right);
+                       q.Enqueue(temp.right);
                     }
+                size--;
             }
-            if(res.Count()>0)
-                result.Add(res);
-            res = new List<int>();
-            while(s.Count()>0)
-            {
-                TreeNode temp = s.Pop();
-                res.Add(temp.val);
-                    if(temp.right!=null)
-                    {
-                       q.Push(temp.right);
-                    }
-                    if(temp.left!=null)
-                    {
-                       q.Push(temp.left);
-                    }
-            }
-            if(res.Count()>0)
-                result.Add(res);
+            if(level%2!=0)
+                res.Reverse();
+            result.Add(res);
+            level++;
             
         }
         return result.ToList<IList<int>>();
