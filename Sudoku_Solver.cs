@@ -1,6 +1,6 @@
 public class Solution {
     
-    public bool IsSafe(char[][] board, char ch, int x, int y, int n)
+    public bool IsSafe(char[][] board, char ch, int x, int y)
     {
         int a = (x/3)*3;
         int b = (y/3)*3;
@@ -14,7 +14,7 @@ public class Solution {
                 }
             }
         }
-        for(int i=0;i<n;i++)
+        for(int i=0;i<9;i++)
         {
             if(i!=y && board[x][i]==ch)
             {
@@ -28,13 +28,13 @@ public class Solution {
         return true;
     }   
     
-    public bool DFS(char[][] board, int n)
+    public bool Solve(char[][] board)
     {
         int r = -1;
         int c = -1;
-        for(int i=0;i<n;i++)
+        for(int i=0;i<9;i++)
         {
-            for(int j =0 ;j<n;j++)
+            for(int j =0 ;j<9;j++)
             {
                 if(board[i][j]=='.')
                 {
@@ -55,13 +55,13 @@ public class Solution {
         {
             return true;
         }
-        for(int i=0;i<n;i++)
+        for(int i=1;i<=9;i++)
         {
-                char ch = (char)(49+i);
-                if(IsSafe(board,ch,r,c,n))
+                char ch = (char)(48+i);
+                if(IsSafe(board,ch,r,c))
                 {
                     board[r][c] = ch;
-                    if(DFS(board,n) )
+                    if(Solve(board))
                         return true;
                     board[r][c] = '.';
                 }
@@ -70,7 +70,6 @@ public class Solution {
     }
     
     public void SolveSudoku(char[][] board) {
-        int n = board.Count();
-        DFS(board,n);
+        Solve(board);
     }
 }
