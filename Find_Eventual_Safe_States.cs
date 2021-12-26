@@ -31,6 +31,10 @@ public class Solution {
         return false;
     }
     public IList<int> EventualSafeNodes(int[][] graph) {
+
+        // Can also be solved using outdegree and then selecting the vertices with outdegree 0 
+        // store them in result and decrement the outdegree from the head of the edges pointing to the 0 outdegree vertices
+        // keep on doing till the algo gives 0 outdegree vertices
         int n = graph.Count();
         adjList = new List<int>[n];
         visited = new bool[n];
