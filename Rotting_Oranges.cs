@@ -18,7 +18,8 @@ public class Solution {
         int[] xDir = new int[4]{0,0,1,-1};
         int[] yDir = new int[4]{1,-1,0,0};
         Queue<Pair> queue = new Queue<Pair>();
-        bool isOrange = false;
+        bool isFreshOrange = false;
+        int totalOranges = 0;
         for(int i=0;i<n;i++)
         {
             for(int j =0 ;j<m;j++)
@@ -27,18 +28,22 @@ public class Solution {
                 {
                     queue.Enqueue(new Pair(i,j));
                     grid[i][j] = -1;
-                    isOrange = true;
+                    totalOranges++;
                 }
                 else if(grid[i][j]==1)
                 {
-                    isOrange = true;
+                    isFreshOrange = true;
+                    totalOranges++;
                 }
             }
         }
-        if(queue.Count()==0 && !isOrange) return 0;
+        
+        if(!isFreshOrange) return 0;
+        
         while(queue.Count()>0)
         {
             int size = queue.Count();
+            totalOranges-=size;
             while(size>0)
             {
                 Pair p = queue.Dequeue();
@@ -54,18 +59,7 @@ public class Solution {
             }
             time++;
         }
-            
-        for(int i=0;i<n;i++)
-        {
-            for(int j =0 ;j<m;j++)
-            {
-                if(grid[i][j]==1)
-                {
-                    return -1;
-                }
-            }
-        }
         
-        return time-1;
+        return totalOranges>0 ? -1 : time-1;
     }
 }
