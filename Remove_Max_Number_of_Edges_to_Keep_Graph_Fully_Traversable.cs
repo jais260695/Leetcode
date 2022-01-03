@@ -30,6 +30,8 @@ public class Solution {
     
     public int MST(int[][] edges, int[] parent,int[] rank, int edgeType, int personType)
     {
+        //No need to check for E=V-1, as MST will always have V-1 Edges 
+        //Adding condition when mstLens length = V-1 will make us avoid some redundant edges
         int redundantEdges = 0;  
         for(int i=0;i<edges.Count();i++)
         {
