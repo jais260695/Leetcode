@@ -1,35 +1,48 @@
 public class Solution {
     public int Verify(string stamp, StringBuilder target, int n, int m)
     {
-        for(int i=0;i<n;i++)
+        int flag=0; 
+        int i = 0;
+        Queue<int> queue = new Queue<int>();
+        while(i<n)
         {
-            int j = 0;
-            int flag = 0;
-            for(;j<m && (i+j)<n ; j++)
+            if(target[i]=='?')
             {
-                if(target[i+j]=='?')
+                queue.Enqueue(i);
+            }
+            else if(target[i]==stamp[queue.Count()])
+            {
+                queue.Enqueue(i);
+                flag=1;
+            }
+            else
+            {
+                if(queue.Count()>0)
+                    i = queue.Peek();
+                queue.Clear();
+                flag = 0;
+            }
+            if(queue.Count()==m)
+            {
+                if(flag==1)
                 {
-                    continue;
-                }
-                else if(target[i+j]==stamp[j])
-                {
-                    flag = 1;
+                    int res = queue.Peek();
+                    while(queue.Count()>0)
+                    {
+                        target[queue.Dequeue()]='?';
+                    }
+                    return res;
                 }
                 else
                 {
-                    break;
+                    i = queue.Peek();
+                    queue.Clear();
+                    flag = 0;
                 }
             }
-            
-            if(j==m && flag==1)
-            {
-                for(int k=0;k<m;k++)
-                {
-                    target[i+k] = '?';
-                }
-                return i;
-            }
+            i++;
         }
+        
         return -1;
     }
     public int[] MovesToStamp(string stamp, string target) {
