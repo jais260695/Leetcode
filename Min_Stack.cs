@@ -17,14 +17,8 @@ public class MinStack {
     }
     
     public void Push(int x) {
-        int minVal = int.MaxValue;
-        if(st.Count()>0) minVal = st.Peek().min;
         Pair p = new Pair(x,x);
-        
-        if(x>minVal)
-        {
-            p.min = minVal;
-        }
+        if(st.Count()>0) p.min = Math.Min(st.Peek().min,x);
         st.Push(p);
     }
     
