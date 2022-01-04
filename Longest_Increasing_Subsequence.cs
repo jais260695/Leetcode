@@ -1,4 +1,4 @@
-    public class Solution {
+public class Solution {
     public int LengthOfLIS(int[] nums) {
         int n = nums.Count();
         if(n==0) return 0;
@@ -15,7 +15,6 @@
                     dp[i] = dp[j]+1;
                 }
             }
-            Console.Write(dp[i]+" ");
         }
         return dp.Max();
     }
