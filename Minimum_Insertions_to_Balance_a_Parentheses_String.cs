@@ -6,7 +6,23 @@ public class Solution {
         int result = 0;
         foreach(char ch in s)
         {
-            if(ch=='(')
+            if(ch==')')
+            {
+                closeCount++;
+                if(closeCount==2)
+                {
+                    if(openCount==0)
+                    {
+                        result++;
+                    }
+                    else
+                    {
+                        openCount--;
+                    }
+                    closeCount=0;
+                }
+            }
+            else
             {
                 if(closeCount==1)
                 {
@@ -22,22 +38,6 @@ public class Solution {
                     closeCount=0;
                 }
                 openCount++;
-            }
-            else
-            {
-                closeCount++;
-                if(closeCount==2)
-                {
-                    if(openCount==0)
-                    {
-                        result++;
-                    }
-                    else
-                    {
-                        openCount--;
-                    }
-                    closeCount=0;
-                }
             }
         }
         if(closeCount==1)
