@@ -7,20 +7,12 @@ public class Solution {
         {
             return i;
         }
-        int intermediate = Find(parent[i]);
-        return parent[i] = intermediate;
+        return parent[i] = Find(parent[i]);
     }
     public void Union(int x, int y)
     {
         x = Find(x);
-        y = Find(y);
-        if(x==y) return;
-        if(x>y)
-        {
-            int temp = x;
-            x = y;
-            y = temp;
-        }    
+        y = Find(y);  
         if(rank[x]==rank[y])
         {
             parent[y] = x;
@@ -48,24 +40,18 @@ public class Solution {
         }        
         for(int i=0;i<col;i++)
         {
-            int parent1 = Find(i);
-            int parent2 = Find(n);
-            if(parent1!=parent2)
-            {
-                parent[parent1] = parent2;
-                rank[parent2]++;
-            }         
+            int u = i;
+            int v = n;
+            parent[u] = v;
+            rank[v]++;   
         }
         
         for(int i=0;i<col;i++)
         {
-            int parent1 = Find((row-1)*col+i);
-            int parent2 = Find(n+1);
-            if(parent1!=parent2)
-            {
-                parent[parent2] = parent1;
-                rank[parent1]++;
-            }         
+            int u = (row-1)*col+i;
+            int v = n+1;
+            parent[u] = v;
+            rank[v]++;   
         }
         
         for(int i=n-1;i>=0;i--)
@@ -79,7 +65,12 @@ public class Solution {
                 int yN = y + yDir[d];
                 if(xN>=0 && xN<row && yN>=0 && yN<col && isLand[xN,yN])
                 {
-                    Union(x*col + y,xN*col + yN);
+                    int u = Find(x*col + y);
+                    int v = Find(xN*col + yN);
+                    if(u!=v)
+                    {
+                        Union(u,v);
+                    }
                     if(Find(n)==Find(n+1)) return i;
                 }
             }
