@@ -1,42 +1,21 @@
 public class Solution {
-    public void DFS(int i, int j, int[][] matrix, int[,] dp, int n, int m)
+    int[] xDir = new int[4]{0,0,1,-1};
+    int[] yDir = new int[4]{1,-1,0,0};
+    public int DFS(int i, int j, int[][] matrix, int[,] dp, int n, int m)
     {
-        int count =0;
+        if(dp[i,j]!=-1) return dp[i,j];
+        dp[i,j] = 0;
         int val = matrix[i][j];
-        if(i-1>=0 && matrix[i-1][j]<val)
+        int count =0;
+        for(int d = 0; d < 4; d++)
         {
-            if(dp[i-1,j] == 0)
-            {
-                DFS(i-1,j,matrix,dp,n,m);
-            }
-            count = Math.Max(count,dp[i-1,j]);
+            int x = i + xDir[d];
+            int y = j + yDir[d];
+            if(x<0 || x>=n || y<0 || y>=m || matrix[x][y]<=val) continue;
+            count = Math.Max(count,DFS(x,y,matrix,dp,n,m));
+            
         }
-        if(i+1<n && matrix[i+1][j]<val)
-        {
-            if(dp[i+1,j] == 0)
-            {
-                DFS(i+1,j,matrix,dp,n,m);
-            }
-            count = Math.Max(count,dp[i+1,j]);
-        }
-        if(j-1>=0 && matrix[i][j-1]<val)
-        {
-            if(dp[i,j-1] == 0)
-            {
-                DFS(i,j-1,matrix,dp,n,m);
-            }
-            count = Math.Max(count,dp[i,j-1]);
-        }
-        if(j+1<m && matrix[i][j+1]<val)
-        {
-            if(dp[i,j+1] == 0)
-            {
-                DFS(i,j+1,matrix,dp,n,m);
-            }
-            count = Math.Max(count,dp[i,j+1]);
-        }
-        
-        dp[i,j] = 1 + count;
+        return dp[i,j] = 1 + count;
     }
     public int LongestIncreasingPath(int[][] matrix) {
         int n = matrix.Count();
@@ -44,13 +23,24 @@ public class Solution {
         int m = matrix[0].Count();
         int[,] dp = new int[n,m];
         
+        for(int i =0;i<n;i++)
+        {
+            for(int j = 0; j<m;j++)
+            {
+                dp[i,j]=-1;
+            }
+        }
+        
         int max = 0;
         
         for(int i =0;i<n;i++)
         {
             for(int j = 0; j<m;j++)
             {
-                DFS(i,j,matrix,dp,n,m);
+                if(dp[i,j]==-1)
+                {
+                    DFS(i,j,matrix,dp,n,m);
+                }
                 max = Math.Max(max,dp[i,j]);
             }
         }
