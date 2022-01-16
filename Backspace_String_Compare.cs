@@ -3,7 +3,7 @@ public class Solution {
     {
         Stack<char> st = new Stack<char>();
         
-        string _s = "";
+        StringBuilder _s = new StringBuilder("");
         for(int i=0;i<s.Length;i++)
         {
             if(s[i]=='#')
@@ -21,9 +21,9 @@ public class Solution {
         
         while(st.Count()>0)
         {
-            _s = st.Pop() + _s;
+            _s.Insert(0,st.Pop());
         }
-        return _s;
+        return _s.ToString();
     }
     public bool BackspaceCompare(string s, string t) {
         return CreateString(s)==CreateString(t);
