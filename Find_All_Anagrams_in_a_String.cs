@@ -18,13 +18,21 @@ public class Solution {
         int i = 0;
         int j = n-1;
         List<int> result = new List<int>();
+        int[] tempCount = new int[26];
+        for(int k = i;k<=j && k<m;k++)
+        {   
+            tempCount[s[k]-'a']++;   
+        }
+        if(CompareArrays(countOfCharsInP,tempCount))
+        {
+            result.Add(i);
+        }
+        j++;
+        i++;
         while(j<m)
         {
-            int[] tempCount = new int[26];
-            for(int k = i;k<=j;k++)
-            {   
-                tempCount[s[k]-'a']++;   
-            }
+            tempCount[s[i-1]-'a']--; 
+            tempCount[s[j]-'a']++; 
             if(CompareArrays(countOfCharsInP,tempCount))
             {
                 result.Add(i);
