@@ -67,7 +67,7 @@ public class Solution {
         
         for(int i=0;i<n;i++)
         {
-            //As AND operartion will casuse any range in decreasing order, so we can use binary search
+            //As AND operartion will casuse any range in non increasing  order, so we can use binary search
             //Proof: [2,6,8] 2=0010, 6 = 0110 , 8 = 1000 . Now 2&6 = 0010 & 0110 =  0010 = 2, and  2 & 8 = 0010 & 1000 = 0
             
             // Minimum of differnce of target to just greater and just smaller value will give the required result
