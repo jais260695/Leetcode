@@ -1,14 +1,16 @@
 public class Solution {
     public int IntegerBreak(int n) {
         if(n<4) return n-1;
-        int x = 0;
+        if(n==4) return n;
+        int x = 3;
+        int y = 3;
         while(true)
         {
-            int mid = (int)Math.Pow(3,x);
-            if(2+(x*3) == n) return 2*mid;
-            if(3+(x*3) == n) return 3*mid;
-            if(4+(x*3) == n) return 4*mid;
-            x++;
+            if(2+x == n) return 2*y;
+            if(3+x == n) return 3*y;
+            if(4+x == n) return 4*y;
+            x+=3;
+            y*=3;
         }
         return -1;
     }
