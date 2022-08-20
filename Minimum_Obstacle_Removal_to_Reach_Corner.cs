@@ -37,8 +37,6 @@ public class Solution {
 
                 if(x<0 || x>=n || y<0 || y>=m) continue;
 
-                int v = x*m + y;
-
                 if(dp[x,y] > grid[x][y] + dist)
                 {
                     dp[x,y] = grid[x][y] + dist;                        
