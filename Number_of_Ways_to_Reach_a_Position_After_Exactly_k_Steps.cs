@@ -1,21 +1,35 @@
 public class Solution {
     int mod = 1000000007;
-    Dictionary<string,int> dp = new Dictionary<string,int>();
-    public int NumberOfWays(int startPos, int endPos, int k) {
+    int[,] dp = new int[4002,1001];
+    
+    public int NumberOfWaysUtil(int startPos, int endPos, int k) {
         if(k==0)
         {
             if(startPos==endPos) return 1;
             return 0;
         }
         
-        string key = startPos + "-" + k;
-        if(dp.ContainsKey(key)) return dp[key];
+        if(dp[startPos+2002,k]!=-1) return dp[startPos+2002,k];
+        
         int result = 0;
         
-        result = (result + NumberOfWays(startPos+1,endPos,k-1))%mod;
-        result = (result + NumberOfWays(startPos-1,endPos,k-1))%mod;
+        result = (result + NumberOfWaysUtil(startPos+1,endPos,k-1))%mod;
+        result = (result + NumberOfWaysUtil(startPos-1,endPos,k-1))%mod;
 
-        dp.Add(key,result);
-        return dp[key];
+        dp[startPos+2002,k] = result;
+        return result;
     }
+    
+    public int NumberOfWays(int startPos, int endPos, int k) {
+        
+        for(int i=0;i<4002;i++)
+        {
+            for(int j=0;j<1001;j++)
+            {
+                dp[i,j] = -1;
+            }
+        }
+        return NumberOfWaysUtil(startPos, endPos, k);
+    }
+    
 }
