@@ -9,15 +9,15 @@ public class Solution {
             }
             dict[ch]++;
         }
-        string ans = "";
+        StringBuilder ans = new StringBuilder();
         var map = dict.OrderByDescending(kvp => kvp.Value);
         foreach(KeyValuePair<char,int> kvp in map)
         {
             for(int i=0;i<kvp.Value;i++)
             {
-                ans+=kvp.Key;
+                ans.Append(kvp.Key);
             }
         }
-        return ans;
+        return ans.ToString();
     }
 }
