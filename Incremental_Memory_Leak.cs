@@ -13,17 +13,13 @@ public class Solution {
                 else
                 {
                     memory2-=i;
-                }             
-                i++;
-                continue;
+                }
             }
-            
-            if(memory2>=i)
+            else
             {
                 memory2-=i;
-                i++;
-                continue;
             }
+            i++;
         }
 
         return new int[3]{i,memory1,memory2};
